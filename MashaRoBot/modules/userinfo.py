@@ -18,7 +18,6 @@ from MashaRoBot import (
     OWNER_ID,
     DRAGONS,
     DEMONS,
-    TIGERS,
     WOLVES,
     INFOPIC,
     dispatcher,
@@ -32,92 +31,9 @@ from MashaRoBot.modules.sql.afk_sql import is_afk, check_afk_status
 from MashaRoBot.modules.sql.users_sql import get_user_num_chats
 from MashaRoBot.modules.helper_funcs.chat_status import sudo_plus
 from MashaRoBot.modules.helper_funcs.extraction import extract_user
-from MashaRoBot import telethn as MashaTelethonClient, TIGERS, DRAGONS, DEMONS
+from MashaRoBot import telethn as MashaTelethonClient, DRAGONS, DEMONS
 
 
-def no_by_per(totalhp, percentage):
-    """
-    rtype: num of `percentage` from total
-    eg: 1000, 10 -> 10% of 1000 (100)
-    """
-    return totalhp * percentage / 100
-
-
-def get_percentage(totalhp, earnedhp):
-    """
-    rtype: percentage of `totalhp` num
-    eg: (1000, 100) will return 10%
-    """
-
-    matched_less = totalhp - earnedhp
-    per_of_totalhp = 100 - matched_less * 100.0 / totalhp
-    per_of_totalhp = str(int(per_of_totalhp))
-    return per_of_totalhp
-
-
-def hpmanager(user):
-    total_hp = (get_user_num_chats(user.id) + 10) * 10
-
-    if not is_user_gbanned(user.id):
-
-        # Assign new var `new_hp` since we need `total_hp` in
-        # end to calculate percentage.
-        new_hp = total_hp
-
-        # if no username decrease 25% of hp.
-        if not user.username:
-            new_hp -= no_by_per(total_hp, 25)
-        try:
-            dispatcher.bot.get_user_profile_photos(user.id).photos[0][-1]
-        except IndexError:
-            # no profile photo ==> -25% of hp
-            new_hp -= no_by_per(total_hp, 25)
-        # if no /setme exist ==> -20% of hp
-        if not sql.get_user_me_info(user.id):
-            new_hp -= no_by_per(total_hp, 20)
-        # if no bio exsit ==> -10% of hp
-        if not sql.get_user_bio(user.id):
-            new_hp -= no_by_per(total_hp, 10)
-
-        if is_afk(user.id):
-            afkst = check_afk_status(user.id)
-            # if user is afk and no reason then decrease 7%
-            # else if reason exist decrease 5%
-            if not afkst.reason:
-                new_hp -= no_by_per(total_hp, 7)
-            else:
-                new_hp -= no_by_per(total_hp, 5)
-
-        # fbanned users will have (2*number of fbans) less from max HP
-        # Example: if HP is 100 but user has 5 diff fbans
-        # Available HP is (2*5) = 10% less than Max HP
-        # So.. 10% of 100HP = 90HP
-
-    # Commenting out fban health decrease cause it wasnt working and isnt needed ig.
-    # _, fbanlist = get_user_fbanlist(user.id)
-    # new_hp -= no_by_per(total_hp, 2 * len(fbanlist))
-
-    # Bad status effects:
-    # gbanned users will always have 5% HP from max HP
-    # Example: If HP is 100 but gbanned
-    # Available HP is 5% of 100 = 5HP
-
-    else:
-        new_hp = no_by_per(total_hp, 5)
-
-    return {
-        "earnedhp": int(new_hp),
-        "totalhp": int(total_hp),
-        "percentage": get_percentage(total_hp, new_hp),
-    }
-
-
-def make_bar(per):
-    done = min(round(per / 10), 10)
-    return "■" * done + "□" * (10 - done)
-
-
-@run_async
 def get_id(update: Update, context: CallbackContext):
     bot, args = context.bot, context.args
     message = update.effective_message
@@ -160,10 +76,8 @@ def get_id(update: Update, context: CallbackContext):
             )
 
 
-@MashaTelethonClient.on(
-    events.NewMessage(
-        pattern="/ginfo ", from_users=(TIGERS or []) + (DRAGONS or []) + (DEMONS or [])
-    )
+@AstrakoBotTelethonClient.on(
+    events.NewMessage(pattern="/ginfo ", from_users=(DRAGONS or []) + (DEMONS or []))
 )
 async def group_info(event) -> None:
     chat = event.text.split(" ", 1)[1]
@@ -198,7 +112,6 @@ async def group_info(event) -> None:
     await event.reply(msg)
 
 
-@run_async
 def gifid(update: Update, context: CallbackContext):
     msg = update.effective_message
     if msg.reply_to_message and msg.reply_to_message.animation:
@@ -210,7 +123,6 @@ def gifid(update: Update, context: CallbackContext):
         update.effective_message.reply_text("Please reply to a gif to get its ID.")
 
 
-@run_async
 def info(update: Update, context: CallbackContext):
     bot, args = context.bot, context.args
     message = update.effective_message
@@ -241,19 +153,18 @@ def info(update: Update, context: CallbackContext):
     rep = message.reply_text("<code>Appraising...</code>", parse_mode=ParseMode.HTML)
 
     text = (
-        f"╒══「<b>⭐Appraisal results⭐:</b> 」\n"
-        f"📝ID: <code>{user.id}</code>\n"
-        f"🌟First Name: {html.escape(user.first_name)}"
+        f"<b>User info:</b>\n"
+        f"ID: <code>{user.id}</code>\n"
+        f"First Name: {html.escape(user.first_name)}"
     )
 
     if user.last_name:
-        text += f"\n✨Last Name: {html.escape(user.last_name)}"
+        text += f"\nLast Name: {html.escape(user.last_name)}"
 
     if user.username:
-        text += f"\n✨Username: @{html.escape(user.username)}"
-       
+        text += f"\nUsername: @{html.escape(user.username)}"
 
-    text += f"\n✨Permalink: {mention_html(user.id, 'link')}"
+    text += f"\nPermalink: {mention_html(user.id, 'link')}"
 
     if chat.type != "private" and user_id != bot.id:
         _stext = "\nPresence: <code>{}</code>"
@@ -270,9 +181,6 @@ def info(update: Update, context: CallbackContext):
                     text += _stext.format("Detected")
                 elif status in {"administrator", "creator"}:
                     text += _stext.format("Admin")
-    if user_id not in [bot.id, 777000, 1087968824]:
-        userhp = hpmanager(user)
-        text += f"\n\n<b>Health:</b> <code>{userhp['earnedhp']}/{userhp['totalhp']}</code>\n[<i>{make_bar(int(userhp['percentage']))} </i>{userhp['percentage']}%]"
 
     try:
         spamwtc = sw.get_ban(int(user.id))
@@ -288,28 +196,24 @@ def info(update: Update, context: CallbackContext):
     disaster_level_present = False
 
     if user.id == OWNER_ID:
-        text += "\n\nThis user is my master."
+        text += "\n\nUser level: <b>god</b>"
         disaster_level_present = True
     elif user.id in DEV_USERS:
-        text += "\n\nThis user is one of my devs."
+        text += "\n\nUser level: <b>developer</b>"
         disaster_level_present = True
     elif user.id in DRAGONS:
-        text += "\n\nThe Disaster level of this person is 'Legend'."
+        text += "\n\nUser level: <b>sudo</b>"
         disaster_level_present = True
     elif user.id in DEMONS:
-        text += "\n\nThe Disaster level of this person is 'Demon'."
-        disaster_level_present = True
-    elif user.id in TIGERS:
-        text += "\n\nThe Disaster level of this person is 'Monster'."
+        text += "\n\nUser level: <b>support</b>"
         disaster_level_present = True
     elif user.id in WOLVES:
-        text += "\n\nThe Disaster level of this person is 'Immortal'."
+        text += "\n\nUser level: <b>whitelist</b>"
         disaster_level_present = True
 
-    if disaster_level_present:
-        text += ' [<a href="https://t.me/Yato_Support_Chat/680">?</a>]'.format(
-            bot.username
-        )
+    # if disaster_level_present:
+    #     text += ' [<a href="https://t.me/OnePunchUpdates/155">?</a>]'.format(
+    #         bot.username)
 
     try:
         user_member = chat.get_member(user.id)
@@ -336,16 +240,15 @@ def info(update: Update, context: CallbackContext):
         try:
             profile = context.bot.get_user_profile_photos(user.id).photos[0][-1]
             _file = bot.get_file(profile["file_id"])
-            _file.download(f"{user.id}.jpg")
+            _file.download(f"{user.id}.png")
 
-            message.reply_photo(
-                photo=open(f"{user.id}.jpg", "rb"),
+            message.reply_document(
+                document=open(f"{user.id}.png", "rb"),
                 caption=(text),
                 parse_mode=ParseMode.HTML,
-                disable_web_page_preview=True,
             )
 
-            os.remove(f"{user.id}.jpg")
+            os.remove(f"{user.id}.png")
         # Incase user don't have profile pic, send normal text
         except IndexError:
             message.reply_text(
@@ -360,7 +263,6 @@ def info(update: Update, context: CallbackContext):
     rep.delete()
 
 
-@run_async
 def about_me(update: Update, context: CallbackContext):
     bot, args = context.bot, context.args
     message = update.effective_message
@@ -388,7 +290,6 @@ def about_me(update: Update, context: CallbackContext):
         update.effective_message.reply_text("There isnt one, use /setme to set one.")
 
 
-@run_async
 def set_about_me(update: Update, context: CallbackContext):
     message = update.effective_message
     user_id = message.from_user.id
@@ -420,7 +321,6 @@ def set_about_me(update: Update, context: CallbackContext):
             )
 
 
-@run_async
 @sudo_plus
 def stats(update: Update, context: CallbackContext):
     stats = "<b>📊 Current stats:</b>\n" + "\n".join([mod.__stats__() for mod in STATS])
@@ -428,7 +328,6 @@ def stats(update: Update, context: CallbackContext):
     update.effective_message.reply_text(result, parse_mode=ParseMode.HTML)
 
 
-@run_async
 def about_bio(update: Update, context: CallbackContext):
     bot, args = context.bot, context.args
     message = update.effective_message
@@ -458,7 +357,6 @@ def about_bio(update: Update, context: CallbackContext):
         )
 
 
-@run_async
 def set_about_bio(update: Update, context: CallbackContext):
     message = update.effective_message
     sender_id = update.effective_user.id
@@ -480,7 +378,7 @@ def set_about_bio(update: Update, context: CallbackContext):
 
         if user_id == bot.id and sender_id not in DEV_USERS:
             message.reply_text(
-                "Erm... yeah, I only trust Emcee powerhouse to set my bio."
+                "Erm... yeah, I only trust developer users to set my bio."
             )
             return
 
@@ -518,42 +416,35 @@ def __user_info__(user_id):
 
 
 __help__ = """
-*Away from group*
- ❍ /afk <reason>*:* mark yourself as AFK(away from keyboard).
- ❍ brb <reason>*:* same as the afk command - but not a command.
-When marked as AFK, any mentions will be replied to with a message to say you're not available!
 *ID:*
- ❍ /id*:* get the current group id. If used by replying to a message, gets that user's id.
- ❍ /gifid*:* reply to a gif to me to tell you its file ID.
+ • `/id`*:* get the current group id. If used by replying to a message, gets that user's id.
+ • `/gifid`*:* reply to a gif to me to tell you its file ID.
 *Self addded information:* 
- ❍ /setme <text>*:* will set your info
- ❍ /me*:* will get your or another user's info.
-*Examples:* 💡
- ➩ /setme I am a wolf.
- ➩ /me @username(defaults to yours if no user specified)
+ • `/setme <text>`*:* will set your info
+ • `/me`*:* will get your or another user's info.
+Examples:
+ `/setme I am a wolf.`
+ `/me @username(defaults to yours if no user specified)`
 *Information others add on you:* 
- ❍ /bio*:* will get your or another user's bio. This cannot be set by yourself.
- ❍ /setbio <text>*:* while replying, will save another user's bio 
-*Examples:* 💡
- ➩ /bio @username(defaults to yours if not specified).`
- ➩ /setbio This user is a wolf` (reply to the user)
+ • `/bio`*:* will get your or another user's bio. This cannot be set by yourself.
+• `/setbio <text>`*:* while replying, will save another user's bio 
+Examples:
+ `/bio @username(defaults to yours if not specified).`
+ `/setbio This user is a wolf` (reply to the user)
 *Overall Information about you:*
- ❍ /info*:* get information about a user. 
- 
-*What is that health thingy?*
- Come and see [HP System explained](https://t.me/OnePunchUpdates/192)
+ • `/info`*:* get information about a user. 
 """
 
-SET_BIO_HANDLER = DisableAbleCommandHandler("setbio", set_about_bio)
+SET_BIO_HANDLER = DisableAbleCommandHandler("setbio", set_about_bio, run_async=True)
 GET_BIO_HANDLER = DisableAbleCommandHandler("bio", about_bio)
 
-STATS_HANDLER = CommandHandler("stats", stats)
-ID_HANDLER = DisableAbleCommandHandler("id", get_id)
-GIFID_HANDLER = DisableAbleCommandHandler("gifid", gifid)
-INFO_HANDLER = DisableAbleCommandHandler(("info", "book"), info)
+STATS_HANDLER = CommandHandler("stats", stats, run_async=True)
+ID_HANDLER = DisableAbleCommandHandler("id", get_id, run_async=True)
+GIFID_HANDLER = DisableAbleCommandHandler("gifid", gifid, run_async=True)
+INFO_HANDLER = DisableAbleCommandHandler(("info", "book"), info, run_async=True)
 
-SET_ABOUT_HANDLER = DisableAbleCommandHandler("setme", set_about_me)
-GET_ABOUT_HANDLER = DisableAbleCommandHandler("me", about_me)
+SET_ABOUT_HANDLER = DisableAbleCommandHandler("setme", set_about_me, run_async=True)
+GET_ABOUT_HANDLER = DisableAbleCommandHandler("me", about_me, run_async=True)
 
 dispatcher.add_handler(STATS_HANDLER)
 dispatcher.add_handler(ID_HANDLER)
@@ -564,7 +455,7 @@ dispatcher.add_handler(GET_BIO_HANDLER)
 dispatcher.add_handler(SET_ABOUT_HANDLER)
 dispatcher.add_handler(GET_ABOUT_HANDLER)
 
-__mod_name__ = "INFOS"
+__mod_name__ = "Info"
 __command_list__ = ["setbio", "bio", "setme", "me", "info"]
 __handlers__ = [
     ID_HANDLER,
