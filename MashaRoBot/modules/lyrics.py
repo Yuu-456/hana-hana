@@ -3,8 +3,8 @@ from tswift import Song
 from telegram import Bot, Update, Message, Chat
 from telegram.ext import run_async
 from telegram.ext import Updater, CommandHandler, CallbackContext
-from AstrakoBot import dispatcher
-from AstrakoBot.modules.disable import DisableAbleCommandHandler
+from MashaRoBot import dispatcher
+from MashaRoBot.modules.disable import DisableAbleCommandHandler
 
 
 def lyrics(update: Update, context: CallbackContext):
