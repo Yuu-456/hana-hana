@@ -107,7 +107,7 @@ def reverse(update: Update, context:CallbackContext):
             imgspage = match['similar_images']
 
         if guess and imgspage:
-            xx.edit_text(f"[{guess}]({fetchUrl})\nNoobde log waifu ka nam tak nahi pata..", parse_mode='Markdown', disable_web_page_preview=True)
+            xx.edit_text(f"[{guess}]({fetchUrl})\Sabar Karle Bhai..", parse_mode='Markdown', disable_web_page_preview=True)
         else:
             xx.edit_text("Couldn't find anything.")
             return
