@@ -2,8 +2,8 @@ import os, glob, json
 
 from telegram import Bot, Update, ParseMode, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import CommandHandler, CallbackQueryHandler, CallbackContext, run_async
-from AstrakoBot import dispatcher
-from AstrakoBot.modules.disable import DisableAbleCommandHandler
+from MashaRoBot import dispatcher
+from MashaRoBot.modules.disable import DisableAbleCommandHandler
 from youtubesearchpython import SearchVideos
 
 from youtube_dl import YoutubeDL
