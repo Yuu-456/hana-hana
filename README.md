@@ -20,7 +20,7 @@ Keep supporting us 😊
 
 
 
-[BOTPROTOCOL](https://t.me/BOTPROTOCOL)
+[Nobara Kugisaki Bot](https://t.me/@NobarasanRobot)
 
 
 
