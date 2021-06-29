@@ -2,9 +2,9 @@
 
 Nobara IS ADVANCE GROUP MANAGER BOT FOR GEEKS 
 
-CLICK ON BELOW IMAGE TO GET BOT  
 
-[![DEPLOY](https://telegra.ph/file/39fa17ce1b2bca43fdc01.jpg)](https://t.mr/@NobarasanRobot)
+
+
 
 Keep supporting us 😊
 
