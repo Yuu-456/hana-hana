@@ -11,7 +11,7 @@ Keep supporting us 😊
 <a href="https://github.com/satyanandatripathi/emcee" alt="GitHub repo size"> <img src="https://img.shields.io/github/repo-size/satyanandatripathi/emcee" />
 <a href="https://t.me/NobarasanRobot" alt="Telegram!"> <img src="https://aleen42.github.io/badges/src/telegram.svg" /> 
 
-https://telegra.ph/file/39fa17ce1b2bca43fdc01.jpg
+{"https://telegra.ph/file/39fa17ce1b2bca43fdc01.jpg"}
 
 [DEVLOPER](https://t.me/xtheanonymous)
 
