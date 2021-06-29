@@ -1,6 +1,6 @@
 #GROUP MANAGER BOT FOR TG
 
-Yui IS ADVANCE GROUP MANAGER BOT FOR GEEKS 
+Nobara IS ADVANCE GROUP MANAGER BOT FOR GEEKS 
 
 CLICK ON BELOW IMAGE TO GET BOT  
 
@@ -13,7 +13,7 @@ Keep supporting us 😊
 
 
 
-[DEVLOPER](https://t.me/ANlME_SENPAI)
+[DEVLOPER](https://t.me/xtheanonymous)
 
 
 
