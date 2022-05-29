@@ -74,8 +74,10 @@ def get_readable_time(seconds: int) -> str:
 
 
 PM_START_TEXT = """
-Hello I am Nobara, Be happy, boys. I'm the woman in your group.
-I am a group management bot which can help you to manage group easy You can see my cmds in help button[.](https://telegra.ph/file/3d80f231383412830f80a.jpg)
+Hello I am Nobara,
+ Be happy.I am Here to save you from Monster Association
+I am a group management bot which can help you to manage group easy You can see my cmds in help button
+Porwered By : WeebArcade Network [.](https://telegra.ph/file/3d80f231383412830f80a.jpg)
 """
 
 buttons = [
@@ -88,12 +90,12 @@ buttons = [
     ],
     [
         InlineKeyboardButton(
-            text="UPDATES CHANNEL", url="https://t.me/nobara_kugisaki_updates"),
+            text="UPDATES CHANNEL", url="https://t.me/fubukixupdates"),
         InlineKeyboardButton(
-            text="👥SUPPORT👥", url="https://t.me/supprt_sora"),
+            text="👥SUPPORT👥", url="https://t.me/FubukixSupport"),
     ],
     [  
-        InlineKeyboardButton(text="Our Troupe", url="https://t.me/The_phantom_troupe"),
+        InlineKeyboardButton(text="Our Arcade", url="https://t.me/The_phantom_troupe"),
     ], 
     
 ]
@@ -108,7 +110,7 @@ HELP_STRINGS = """
 """
 
 
-DONATE_STRING = """I Dont need your Money Coz I am already RICH"""
+DONATE_STRING = """I Dont need that Please keep it hehe:)."""
 
 IMPORTED = {}
 MIGRATEABLE = []
