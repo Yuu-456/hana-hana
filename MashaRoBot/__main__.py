@@ -81,7 +81,7 @@ I am a group management bot which can help you to manage group easy You can see 
 buttons = [
     [
         InlineKeyboardButton(
-            text= "Add Nobara", url="t.me/NobarasanRobot?startgroup=true"),
+            text= "Add Fubuki to your group ", url="t.me/FubukixRobot?startgroup=true"),
     ],
     [
         InlineKeyboardButton(text="COMMANDS", callback_data="help_back"),
