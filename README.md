@@ -1,30 +1,14 @@
-#GROUP MANAGER BOT FOR TG
+<p align="center">
+  <img src="https://telegra.ph/file/ecbdbec469dfc33227c0e.jpg">
+</p>
 
-Nobara IS ADVANCE GROUP MANAGER BOT FOR GEEKS 
+<h4><p align="center"> Gojo Satoru </p></h4>
 
-
-
-
-
-Keep supporting us 😊
-
-<a href="https://github.com/satyanandatripathi/emcee" alt="GitHub repo size"> <img src="https://img.shields.io/github/repo-size/satyanandatripathi/emcee" />
-<a href="https://t.me/NobarasanRobot" alt="Telegram!"> <img src="https://aleen42.github.io/badges/src/telegram.svg" /> 
+<p align="center"> Gojo Satoru Is anime theme Advanced Group Management Bot specially developed to manage telegram group chats more effectively and efficiently!.</p>
 
 
+### Support & Developer 🎑
+<a href="https://telegram.me/gojoxsupport"><img src="https://img.shields.io/badge/Join-Support%20Group-blue.svg?style=for-the-badge&logo=Telegram"></a> <a href="https://telegram.me/zenin_hodaka"><img src="https://img.shields.io/badge/%20Developer-blue.svg?style=for-the-badge&logo=Telegram"></a>
 
-
-[DEVLOPER](https://t.me/xtheanonymous)
-
-
-
-
-
-
-[Nobara Kugisaki Bot](https://t.me/@NobarasanRobot)
-
-
-
-
-
-[Deploy to heroku](https://dashboard.heroku.com/new?button-url=https%3A%2F%2Fgithub.com%2Fsatyanandatripathi%2FEMCEE&template=https%3A%2F%2Fgithub.com%2Fsatyanandatripathi%2FEMCEE)
+### Deploy
+ [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/yuu-456/hana-hana)
