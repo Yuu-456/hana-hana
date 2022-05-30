@@ -77,7 +77,7 @@ PM_START_TEXT = """
 Hello I am Fubuki,
  Be happy.I am Here to save you from Monster Association
 I am a group management bot which can help you to manage group easy You can see my cmds in help button
-Porwered By : WeebArcade Network [.](https://telegra.ph/file/3d80f231383412830f80a.jpg)
+Porwered By : WeebArcade Network [.](https://telegra.ph/file/ed8b9b9b54449db070cb4.jpg)
 """
 
 buttons = [
