@@ -83,7 +83,7 @@ Porwered By : WeebArcade Network [.](https://telegra.ph/file/ed8b9b9b54449db070c
 buttons = [
     [
         InlineKeyboardButton(
-            text= "Add Fubuki to your group ", url="t.me/FubukixRobot?startgroup=true"),
+            text= "Add Fubuki to your group ", url="t.me/FubukiXBot?startgroup=true"),
     ],
     [
         InlineKeyboardButton(text="COMMANDS", callback_data="help_back"),
